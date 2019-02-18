@@ -27,7 +27,7 @@ def build_doc(template, outfile, actions):
                 save_format = 20
 
         if 'set_author' in i:
-            wdAuthor = wdDoc.BuiltinDocumentProperties("Author")  # this is not working
+            wdAuthor = wdDoc.BuiltinDocumentProperties("Author")
             wdAuthor.Value = i['set_author']
             wdDoc.Fields.Update
 
