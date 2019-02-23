@@ -1,6 +1,20 @@
 # adb
 Adaptive Document Builder
 
+A framework for generating simulated malicious office documents.
+
+## Features
+
+* VBA is distinct for every document (level of distinction depends on the adversary document builder selected)
+* Random author based on easily updated/replaced name lists (sets local system registry keys before each document build)
+* Random file name based on the most commonly seen file names in malicious document campaigns
+* Multiple file formats (doc, docm, XML flat OPC)
+* Multiple file extensions (.doc, .docm, .rtf)
+* Supports multiple payloads
+* Functions for building and randomizing VBA are in a shared library for use across multiple adversary builders
+* Modular design and architecture for easy addition of more adversary builders
+* debug mode that outputs audit trail of document creation details including VBA contents
+
 ## Runs on
 
 Python 3 on Windows</br>
@@ -14,17 +28,9 @@ COM is used to interface with an installed and configured Office product
     https://support.office.com/en-us/article/enable-or-disable-macros-in-office-files-12b036fd-d140-4e74-b45e-16fed1a7e5c6
 - Python modules in requirements.txt installed
 
-## Features
-
-* VBA is distinct for every document (level of distinction depends on the adversary document builder selected)
-* Random author based on easily updated/replaced name lists (sets local system registry keys before each document build)
-* Random file name based on the most commonly seen file names in malicious document campaigns
-* Multiple file formats (doc, docm, XML flat OPC)
-* Multiple file extensions (.doc, .docm, .rtf)
-* Supports multiple payloads
-* Functions for building and randomizing VBA are in a shared library for use across multiple adversary builders
-* Modular design and architecture for easy addition of more adversary builders
-* debug mode that outputs audit trail of document creation details including VBA contents
+### Run this on a virtual machine!
+ - Disable Windows Defender or add an exclusion for the adb files (before cloning) and your output directory or they might get cleaned
+ - Registry entries will be changed when setting the author of documents, so don't run this with any production Office software
 
 ## Usage
 
