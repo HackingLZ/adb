@@ -19,6 +19,8 @@ def get_payloads():
 
     string_in_powershell_pattern = re.compile(r'\'[^\']+\'')
 
+
+    # chunk the strings in the powershell so they are randomly separated, making it difficult to signature the base64
     for match in re.findall(string_in_powershell_pattern, payload):
         if len(match) > 3:
             remaining = match
@@ -31,7 +33,7 @@ def get_payloads():
                 else:
                     chunked_list.append(remaining)
                     remaining = ""
-            payload = payload.replace(match, "' + '".join(chunked_list))
+            payload = payload.replace(match, "'+'".join(chunked_list))
 
 
 
