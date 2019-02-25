@@ -20,6 +20,9 @@ def build_doc(template, outfile, actions):
             vbaModule = wdDoc.VBProject.VBComponents.Add(1)
             vbaModule.CodeModule.AddFromString(i['add_vba_module'])
 
+        if 'rename_vba_module' in i:
+            vbaModule.Properties.Name = i['rename_vba_module']
+
         if 'set_save_format' in i:
             if i['set_save_format'].lower() == 'docm':
                 save_format = 13

