@@ -27,7 +27,8 @@ def stomp_vba(original_file, stomped_file):
             shutil.make_archive(stomped_file, 'zip', tmpdir.name)
             if os.path.exists(stomped_file): os.remove(stomped_file)
             os.rename(stomped_file + '.zip',stomped_file)
-            
+
+# This method originally from  Kirk Sayre (@bigmacjpg)             
 def stomp_it(stomped_file):    
     # Open file to mangle the VBA streams.
     with olefile.OleFileIO(stomped_file, write_mode=True) as ole:
