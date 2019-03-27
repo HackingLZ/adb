@@ -27,7 +27,8 @@ def stomp_vba(original_file, stomped_file):
             shutil.make_archive(stomped_file, 'zip', tmpdir.name)
             if os.path.exists(stomped_file): os.remove(stomped_file)
             os.rename(stomped_file + '.zip',stomped_file)
-            
+
+# This method originally from Kirk Sayre (@bigmacjpg)             
 def stomp_it(stomped_file):    
     # Open file to mangle the VBA streams.
     with olefile.OleFileIO(stomped_file, write_mode=True) as ole:
@@ -37,27 +38,20 @@ def stomp_it(stomped_file):
         
             # Got macros?
             data = ole.openstream(stream_name).read()
-            name = stream_name[len(stream_name) - 1]
             
-            if (len(name) > 3):
-                name = name[:3]
-            marker = '= "' + name
-            marker = marker.encode('utf-8')
+            marker = b"Attrib"
             if (marker not in data):
                 continue
            
             # Find where to write.
             start = data.rindex(marker)
-            while (data[start] != 0x0d):
-                start += 1
-            start += 1
-        
+
             # Stomp the rest of the data.
             new_data = data[:start]
             for i in range(start, len(data)):
                 # Stomp with random bytes.
                 new_data += os.urandom(1)
-        
+            
             # Write out the garbage data.
             ole.write_stream(stream_name, new_data)
 
