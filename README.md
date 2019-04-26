@@ -72,7 +72,7 @@ VBA stomp all macro enabled documents in the given folder (-v) . Write modified 
 >python adb.py -v C:\Users\h\Desktop\in -o c:\users\h\Desktop\out
 ```
 
-Note: VBA stomping works for Word (.doc and .docm) and Excel (.xlsm) files. Currently, Excel .xls (Office 97-3003 format) is not supported.
+Note: VBA stomping works for Word (.doc and .docm) and Excel (.xlsm) files. Currently, Excel .xls (Office 97-2003 format) is not supported.
 
 ### Help Output
 ```
@@ -98,4 +98,7 @@ optional arguments:
                         -o --outdir {path\to\outdir}
   -d, --debug           -d --debug : print debug statements and playbook for
                         each document
+  -v VBASTOMP, --vbastomp VBASTOMP
+                        -v --vba-stomp : a file or directory of files in which
+                        to stomp the vba source
 ```
