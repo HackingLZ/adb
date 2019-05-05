@@ -29,7 +29,7 @@ def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", vb
         utils.set_doc_author_keys(userinitials=initials, username=name)
         playbook.append({'set_author': name})
         if vba_stomp == True:
-            playbook.append('stomp_vba')
+            playbook.append({'vba_stomp': True})
         print("[*] Building document " + out_file_name + " with author: " + name)
         if debug == True:
             print("* Playbook: ")
