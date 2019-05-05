@@ -69,3 +69,7 @@ if __name__ == "__main__":
             print("Please provide a path to a file to be VBA stomped")
         if os.path.isfile(file_to_stomp_path):
             stomp_vba(file_to_stomp_path, file_to_stomp_path + ".stomped")
+            if os.path.isfile(file_to_stomp_path + ".stomped"):
+                print("[*] Stomped VBA - new file at: " + str(file_to_stomp_path + ".stomped"))
+            else:
+                print("[!] Failed to stomp file: " + file_to_stomp_path)
