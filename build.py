@@ -5,7 +5,7 @@ import random
 import importlib
 import os
 
-def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", debug=False):
+def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", vba_stomp=False, debug=False):
 
     generate_vba = importlib.import_module("adversary." + adversary + ".generate_vba")
     payloads = importlib.import_module("adversary." + adversary + ".payloads")
@@ -28,6 +28,8 @@ def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", de
         initials, name = random_stuff.getrandomauthor()
         utils.set_doc_author_keys(userinitials=initials, username=name)
         playbook.append({'set_author': name})
+        if vba_stomp == True:
+            playbook.append('stomp_vba')
         print("[*] Building document " + out_file_name + " with author: " + name)
         if debug == True:
             print("* Playbook: ")

@@ -43,3 +43,4 @@ def build_doc(template, outfile, actions):
         if 'change_extension_after_save' in i:
             renamed_file_path = os.path.join(Path(outfile).parent, Path(outfile).stem + "." + i['change_extension_after_save'])
             os.rename(outfile, renamed_file_path)
+    
