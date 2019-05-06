@@ -19,7 +19,7 @@ def get_args(arg_list):
         parser.add_argument('-l', '--listadversaries', dest="listadversaries", action='store_true', help="-l --listadversaries : list available adversaries and exits")
         parser.add_argument('-o', '--outdir', dest="outdir", default="Default", help="-o --outdir {path\\to\\outdir}")
         parser.add_argument('-d', '--debug', dest="debug", default=False, action='store_true', help="-d --debug : print debug statements and playbook for each document")
-        parser.add_argument('-v', '--vbastomp', dest="vbastomp", default=False, action='store_true', help="-v --vba-stomp : vba stomp all files")
+        parser.add_argument('-v', '--vbastomp', dest="vbastomp", default=False, action='store_true', help="-v --vba-stomp : vba stomp files")
         args = parser.parse_args(arg_list)
     except KeyboardInterrupt:
         sys.exit(0)
