@@ -100,6 +100,5 @@ optional arguments:
   -d, --debug           -d --debug : print debug statements and playbook for
                         each document
   -v VBASTOMP, --vbastomp VBASTOMP
-                        -v --vba-stomp : a file or directory of files in which
-                        to stomp the vba source
+                        -v --vba-stomp : VBA stomp each document as they are built
 ```
