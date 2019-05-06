@@ -42,7 +42,7 @@ def build_doc(template, outfile, actions):
 
     for i in actions:
         if 'vba_stomp' in i:
-            print("stomping: " + outfile)
+            print("[*] \tstomping: " + outfile)
             stomp_vba.stomp_vba(outfile, outfile + ".stomped")
             if os.path.isfile(outfile + ".stomped"):
                 os.remove(outfile)
@@ -51,5 +51,9 @@ def build_doc(template, outfile, actions):
                 print("[!] VBA stomped file was not created")
 
         if 'change_extension_after_save' in i:
-            renamed_file_path = os.path.join(Path(outfile).parent, Path(outfile).stem + "." + i['change_extension_after_save'])
+            renamed_file_path = os.path.join(Path(outfile).parent, Path(outfile).stem + "." +
+                                             i['change_extension_after_save'])
             os.rename(outfile, renamed_file_path)
+            print("[*] \trenamed to: " + renamed_file_path)
+            outfile = renamed_file_path  # this is so that if other actions take place after this, outfile will reflect\
+                                         # the new file path
