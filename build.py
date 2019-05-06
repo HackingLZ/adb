@@ -5,7 +5,7 @@ import random
 import importlib
 import os
 
-def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", debug=False):
+def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", vba_stomp=False, debug=False):
 
     generate_vba = importlib.import_module("adversary." + adversary + ".generate_vba")
     payloads = importlib.import_module("adversary." + adversary + ".payloads")
@@ -18,6 +18,8 @@ def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", de
 
     filetype_and_extension = utils.reconcile_extension_and_format(extension=extension, filetype=filetype)
 
+    utils.reconcile_vba_stomp_and_format(vba_stomp=vba_stomp, filetype=filetype)
+
     while c < count:
         playbook = generate_vba.generate(random.choice(payloads.get_payloads()))
         if 'change_extension_after_save' in filetype_and_extension:
@@ -28,6 +30,8 @@ def build_files(adversary, out_dir, count=1, filetype="doc", extension="doc", de
         initials, name = random_stuff.getrandomauthor()
         utils.set_doc_author_keys(userinitials=initials, username=name)
         playbook.append({'set_author': name})
+        if vba_stomp == True:
+            playbook.append({'vba_stomp': True})
         print("[*] Building document " + out_file_name + " with author: " + name)
         if debug == True:
             print("* Playbook: ")

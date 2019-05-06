@@ -60,16 +60,17 @@ Build 5 documents with vba and payload style resembling underscore_crew_201806 (
 
 ### Modify documents
 
-VBA stomp (overwrite the compressed VBA storage) a macro enabled document (specified by -v). Write modified documents to the output (-o) folder. For more information about VBA Stomping see [vbastomp.com](https://vbastomp.com).
+VBA stomp (overwrite the compressed VBA storage) a macro enabled document (specified by -v). For more information about VBA Stomping see [vbastomp.com](https://vbastomp.com).
 
 ```
->python adb.py -v C:\Users\h\Desktop\in\macro-doc.docm -o c:\users\h\Desktop\out
+>python adb.py -a emotet_20190222 -o C:\users\h\desktop\out -v
 ```
 
-VBA stomp all macro enabled documents in the given folder (-v) . Write modified documents to the output (-o) folder.
+VBA stomp a single document (regardless of how it was created)
 
 ```
->python adb.py -v C:\Users\h\Desktop\in -o c:\users\h\Desktop\out
+>python internals\stomp_vba.py C:\users\h\desktop\out\Incorrect_Payment_7457.doc
+[*] Stomped VBA - new file at: C:\users\h\desktop\out\Incorrect_Payment_7457.doc.stomped
 ```
 
 Note: VBA stomping works for Word (.doc and .docm) and Excel (.xlsm) files. Currently, Excel .xls (Office 97-2003 format) is not supported.

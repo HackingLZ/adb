@@ -51,6 +51,15 @@ def reconcile_extension_and_format(extension, filetype):
     else:
         print("\n[!] Combination of format {} and extension {} is invalid.\n".format(extension, filetype))
         raise ValueError
+
+def reconcile_vba_stomp_and_format(vba_stomp, filetype):
+    filetype = filetype.lower()
+    if filetype == "doc" and vba_stomp is True:
+        return True
+    else:
+        print("\n[!] Combination of format {} and VBA stomping (-v) are not compatible.\n".format(filetype))
+        raise ValueError
+
 # tests
 
 
